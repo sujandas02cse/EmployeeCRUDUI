@@ -8,7 +8,6 @@ app.controller("EmployeeController", function($scope, EmployeeService) {
         EmployeeService.getAll().then(
             function(response) {
                 $scope.employees = response.data;
-                console.log(response.data);
             },
             function(error) {
                 console.error("Error loading employees", error);
