@@ -10,6 +10,10 @@ app.factory('EmployeeService', function($http) {
         },
         create:function(employee){
             return $http.post(baseUrl+'/AddEmployee',employee)
+        },
+        update:function(employee){
+            return $http.post(baseUrl+'/UpdateEmployee',employee);
         }
+
     }
 })
