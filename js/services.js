@@ -6,7 +6,7 @@ app.factory('EmployeeService', function($http) {
             return $http.get(baseUrl + '/GetAllEmployees');
         },
         delete:function(id){
-            return $http.delete(baseUrl+'/DeleteEmployee'+id);
+            return $http.post(baseUrl+'/DeleteEmployee',{Id:id});
         }
     }
 })
