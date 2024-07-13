@@ -23,12 +23,21 @@
       <h5 class="mb-4 text-center">Employee CRUD Application</h5>
       <div class="d-flex justify-content-left mb-4">
         <button
-          class="btn btn-primary"
+          class="btn btn-primary mr-2"
           data-toggle="modal"
           data-target="#addEmployeeModal"
           ng-click="isEditing=false; newEmployee={}"
         >
           Add New Employee
+        </button>
+
+        <button
+          class="btn btn-primary"
+          data-toggle="modal"
+          data-target="#addEmployeeModal"
+          ng-click="isEditing=false; newEmployee={}"
+        >
+          Print All
         </button>
       </div>
 
@@ -63,6 +72,12 @@
                   ng-click="deleteEmployee(employee)"
                 >
                   Delete
+                </button>
+                <button
+                  class="btn btn-danger btn-sm"
+                  ng-click="printEmployee(employee)"
+                >
+                  Print
                 </button>
               </td>
             </tr>
