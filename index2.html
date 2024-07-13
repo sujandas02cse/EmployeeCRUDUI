@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="employeeApp">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee CRUD App</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- AngularJS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/controllers.js"></script>
+    <script src="js/services.js"></script>
+    <!-- Optional Bootstrap JavaScript and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <div class="container mt-4" ng-controller="EmployeeController">
+        <h1 class="mb-4">Employee CRUD Application</h1>
+        <button class="btn btn-primary mb-4" data-toggle="modal" data-target="#addEmployeeModal">Add New Employee</button>
+        <div class="card">
+            <div class="card-header">
+                Employee List
+            </div>
+            <div class="card-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>DOJ</th>
+                            <th>Department</th>
+                            <th>Company</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="employee in employees">
+                            <td>{{employee.Id}}</td>
+                            <td>{{employee.EmployeeName}}</td>
+                            <td>{{employee.DOJ}}</td>
+                            <td>{{employee.Department}}</td>
+                            <td>{{employee.Company}}</td>
+                            <td>
+                                <button class="btn btn-info btn-sm" ng-click="editEmployee(employee)">Edit</button>
+                                <button class="btn btn-danger btn-sm" ng-click="deleteEmployee(employee)">Delete</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Add Employee Modal -->
+        <div class="modal fade" id="addEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="addEmployeeModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addEmployeeModalLabel">Add New Employee</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form ng-submit="addEmployee()">
+                            <div class="form-group">
+                                <label for="employeeName">Employee Name</label>
+                                <input type="text" id="employeeName" ng-model="newEmployee.EmployeeName" class="form-control" placeholder="Employee Name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="doj">Date of Joining</label>
+                                <input type="date" id="doj" ng-model="newEmployee.DOJ" class="form-control" placeholder="Date of Joining" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="department">Department</label>
+                                <input type="text" id="department" ng-model="newEmployee.Department" class="form-control" placeholder="Department" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="company">Company</label>
+                                <input type="text" id="company" ng-model="newEmployee.Company" class="form-control" placeholder="Company" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Add Employee</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>
