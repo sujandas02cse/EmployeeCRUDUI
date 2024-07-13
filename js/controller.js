@@ -1,6 +1,7 @@
 app.controller("EmployeeController", function ($scope, EmployeeService) {
   $scope.employees = [];
   $scope.newEmployee = {};
+  $scope.isEditing = false;
 
   // load all employees
 
@@ -46,19 +47,41 @@ app.controller("EmployeeController", function ($scope, EmployeeService) {
     }
   };
 
+  $scope.addOrUpdateEmployee = function () {
+    if ($scope.isEditing) {
+      EmployeeService.update($scope.newEmployee).then(
+        function(response){
+          $scope.loadEmployees();
+          $scope.newEmployee={};
+          $scope.isEditing=false;
+          alert("Employee updated successfully");
+          $('#addEmployeeModal').modal('hide');
+        },
+        function(error){
+          console.error("Error updating employee",error);
+        }
+      );
+    } else {
+      EmployeeService.create($scope.newEmployee).then(
+        function (response) {
+          $scope.loadEmployees();
+          $scope.newEmployee = {};
+          alert("Employee added successfully");
+          $("#addEmployeeModal").modal("hide");
+        },
+        function (error) {
+          console.error("Error adding employee:", error);
+        }
+      );
+    }
+  };
 
-  $scope.addEmployee=function(){
-    EmployeeService.create($scope.newEmployee).then(
-      function(response){
-        $scope.loadEmployees();
-        $scope.newEmployee={};
-        alert("Employee added successfully")
-      },
-      function(error){
-        console.error("Error adding employee:",error);
-      }
-    )
-  }
+  $scope.editEmployee=function(employee){
+    $scope.newEmployee=angular.copy(employee);
+    $scope.newEmployee.DOJ=new Date(employee.DOJ);
+    $scope.isEditing=true;
+    $('#addEmployeeModal').modal('show');
+  };
 
   $scope.loadEmployees();
 });
