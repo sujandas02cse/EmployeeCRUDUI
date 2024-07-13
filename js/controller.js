@@ -46,5 +46,19 @@ app.controller("EmployeeController", function ($scope, EmployeeService) {
     }
   };
 
+
+  $scope.addEmployee=function(){
+    EmployeeService.create($scope.newEmployee).then(
+      function(response){
+        $scope.loadEmployees();
+        $scope.newEmployee={};
+        alert("Employee added successfully")
+      },
+      function(error){
+        console.error("Error adding employee:",error);
+      }
+    )
+  }
+
   $scope.loadEmployees();
 });
