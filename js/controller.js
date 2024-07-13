@@ -17,7 +17,7 @@ app.controller("EmployeeController", function ($scope, EmployeeService) {
   };
 
   $scope.deleteEmployee = function (id) {
-    EmployeeServic.delete(id).then(
+    EmployeeService.delete(id).then(
       function (response) {
         $scope.loadEmployees();
       },
