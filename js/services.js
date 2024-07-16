@@ -13,6 +13,9 @@ app.factory('EmployeeService', function($http) {
         },
         update:function(employee){
             return $http.post(baseUrl+'/UpdateEmployee',employee);
+        },
+        generateReport:function(){
+            return $http.get(baseUrl+'/EmployeeReport',{responseType:'arraybuffer'});
         }
 
     }

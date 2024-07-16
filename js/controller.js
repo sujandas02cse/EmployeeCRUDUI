@@ -50,15 +50,15 @@ app.controller("EmployeeController", function ($scope, EmployeeService) {
   $scope.addOrUpdateEmployee = function () {
     if ($scope.isEditing) {
       EmployeeService.update($scope.newEmployee).then(
-        function(response){
+        function (response) {
           $scope.loadEmployees();
-          $scope.newEmployee={};
-          $scope.isEditing=false;
+          $scope.newEmployee = {};
+          $scope.isEditing = false;
           alert("Employee updated successfully");
-          $('#addEmployeeModal').modal('hide');
+          $("#addEmployeeModal").modal("hide");
         },
-        function(error){
-          console.error("Error updating employee",error);
+        function (error) {
+          console.error("Error updating employee", error);
         }
       );
     } else {
@@ -76,12 +76,29 @@ app.controller("EmployeeController", function ($scope, EmployeeService) {
     }
   };
 
-  $scope.editEmployee=function(employee){
-    $scope.newEmployee=angular.copy(employee);
-    $scope.newEmployee.DOJ=new Date(employee.DOJ);
-    $scope.isEditing=true;
-    $('#addEmployeeModal').modal('show');
+  $scope.editEmployee = function (employee) {
+    $scope.newEmployee = angular.copy(employee);
+    $scope.newEmployee.DOJ = new Date(employee.DOJ);
+    $scope.isEditing = true;
+    $("#addEmployeeModal").modal("show");
   };
+  ($scope.printAllEmployees = function () {
+    EmployeeService.generateReport().then(
+      function(response){
+        var blob=new Blob([response.data],{type:'application/pdf'});
+        var downloadUrl=URL.createObjectURL(blob);
+        var a=document.createElement('a');
+        a.href=downloadUrl;
+        a.target="_blank";
+        a.download='EmployeeRpt.pdf';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      },
+      function(error){
+        console.error("Error generating report",error);
 
-  $scope.loadEmployees();
+      }
+    )
+  }), $scope.loadEmployees();
 });
