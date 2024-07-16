@@ -5,18 +5,19 @@ app.factory('EmployeeService', function($http) {
         getAll: function() {
             return $http.get(baseUrl + '/GetAllEmployees');
         },
-        delete:function(id){
-            return $http.post(baseUrl+'/DeleteEmployee',{Id:id});
+        delete: function(id) {
+            return $http.post(baseUrl + '/DeleteEmployee', { Id: id });
         },
-        create:function(employee){
-            return $http.post(baseUrl+'/AddEmployee',employee)
+        create: function(employee) {
+            return $http.post(baseUrl + '/AddEmployee', employee)
         },
-        update:function(employee){
-            return $http.post(baseUrl+'/UpdateEmployee',employee);
+        update: function(employee) {
+            return $http.post(baseUrl + '/UpdateEmployee', employee);
         },
-        generateReport:function(){
-            return $http.get(baseUrl+'/EmployeeReport',{responseType:'arraybuffer'});
+        generateReport: function() {
+            return $http.get(baseUrl + '/EmployeeReport', { responseType: 'arraybuffer' });
         }
+
 
     }
 })

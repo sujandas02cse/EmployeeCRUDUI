@@ -80,7 +80,30 @@ app.controller("EmployeeController", function($scope, EmployeeService) {
         $scope.newEmployee.DOJ = new Date(employee.DOJ);
         $scope.isEditing = true;
         $('#addEmployeeModal').modal('show');
-        
+
+    };
+
+
+    $scope.printEmployee = function(employee) {
+
+        EmployeeService.generateSingleReport(employee).then(
+            function(response) {
+                var blob = new Blob([response.data], { type: 'application/pdf' });
+                var downloadUrl = URL.createObjectURL(blob);
+                var a = document.createElement('a');
+                a.href = downloadUrl;
+                a.target = '_blank';
+                a.download = 'Employee.pdf';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+
+            },
+            function(error) {
+                console.error("Error generating report", error);
+            }
+
+        );
     };
 
     $scope.printAllEmployees = function() {
@@ -91,7 +114,7 @@ app.controller("EmployeeController", function($scope, EmployeeService) {
                 var a = document.createElement('a');
                 a.href = downloadUrl;
                 a.target = '_blank';
-                a.download = 'EmployeeRpt.pdf';
+                a.download = 'Employees.pdf';
                 document.body.appendChild(a);
                 a.click();
                 document.body.removeChild(a);
