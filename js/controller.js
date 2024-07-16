@@ -4,8 +4,6 @@ app.controller("EmployeeController", function($scope, EmployeeService) {
     $scope.isEditing = false;
 
     // load all employees
-
-
     $scope.loadEmployees = function() {
         EmployeeService.getAll().then(
             function(response) {
@@ -48,20 +46,6 @@ app.controller("EmployeeController", function($scope, EmployeeService) {
         }
     };
 
-<<<<<<< HEAD
-  $scope.addOrUpdateEmployee = function () {
-    if ($scope.isEditing) {
-      EmployeeService.update($scope.newEmployee).then(
-        function (response) {
-          $scope.loadEmployees();
-          $scope.newEmployee = {};
-          $scope.isEditing = false;
-          alert("Employee updated successfully");
-          $("#addEmployeeModal").modal("hide");
-        },
-        function (error) {
-          console.error("Error updating employee", error);
-=======
     $scope.addOrUpdateEmployee = function() {
         if ($scope.isEditing) {
             EmployeeService.update($scope.newEmployee).then(
@@ -88,45 +72,35 @@ app.controller("EmployeeController", function($scope, EmployeeService) {
                     console.error("Error adding employee:", error);
                 }
             );
->>>>>>> 39de1290424d95f0a9ad6a9441be46c53d2628c0
         }
     };
 
-<<<<<<< HEAD
-  $scope.editEmployee = function (employee) {
-    $scope.newEmployee = angular.copy(employee);
-    $scope.newEmployee.DOJ = new Date(employee.DOJ);
-    $scope.isEditing = true;
-    $("#addEmployeeModal").modal("show");
-  };
-  ($scope.printAllEmployees = function () {
-    EmployeeService.generateReport().then(
-      function(response){
-        var blob=new Blob([response.data],{type:'application/pdf'});
-        var downloadUrl=URL.createObjectURL(blob);
-        var a=document.createElement('a');
-        a.href=downloadUrl;
-        a.target="_blank";
-        a.download='EmployeeRpt.pdf';
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-      },
-      function(error){
-        console.error("Error generating report",error);
-
-      }
-    )
-  }), $scope.loadEmployees();
-});
-=======
     $scope.editEmployee = function(employee) {
         $scope.newEmployee = angular.copy(employee);
         $scope.newEmployee.DOJ = new Date(employee.DOJ);
         $scope.isEditing = true;
         $('#addEmployeeModal').modal('show');
+        
+    };
+
+    $scope.printAllEmployees = function() {
+        EmployeeService.generateReport().then(
+            function(response) {
+                var blob = new Blob([response.data], { type: 'application/pdf' });
+                var downloadUrl = URL.createObjectURL(blob);
+                var a = document.createElement('a');
+                a.href = downloadUrl;
+                a.target = '_blank';
+                a.download = 'EmployeeRpt.pdf';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+            },
+            function(error) {
+                console.error("Error generating report", error);
+            }
+        );
     };
 
     $scope.loadEmployees();
 });
->>>>>>> 39de1290424d95f0a9ad6a9441be46c53d2628c0
